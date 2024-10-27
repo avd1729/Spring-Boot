@@ -5,10 +5,7 @@ import com.example.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,18 +17,30 @@ public class ArticleController {
     @Autowired
     private ArticleService service;
 
-    @RequestMapping("/articles")
+    @GetMapping("/article")
     public ResponseEntity<List<Article>> getAllArticles() {
         return new ResponseEntity<>(service.getAllArticles(), HttpStatus.OK);
     }
 
-    @RequestMapping("/articles/{id}")
+    @GetMapping("/article/{id}")
     public ResponseEntity<Article> getArticleById(@PathVariable int id) {
         Article article = service.getArticleById(id);
         if (article != null) {
             return new ResponseEntity<>(article, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/article")
+    public ResponseEntity<?> addArticle(@RequestBody Article article) {
+
+        try {
+            Article article1 = service.addArticle(article);
+            return new ResponseEntity<>(article1, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

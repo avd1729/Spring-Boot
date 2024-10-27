@@ -20,4 +20,8 @@ public class ArticleService {
     public Article getArticleById(int id) {
         return repository.findById(id).orElse(null);
     }
+
+    public Article addArticle(Article article) {
+        return repository.save(article);
+    }
 }
