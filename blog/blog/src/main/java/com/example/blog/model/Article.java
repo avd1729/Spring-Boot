@@ -1,11 +1,13 @@
 package com.example.blog.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import jakarta.persistence.Column;
 import java.util.Date;
 
 @Entity
@@ -15,10 +17,13 @@ import java.util.Date;
 public class Article {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String title;
     private String author;
     private String content;
+
+    @Column(name = "published_date")
     private Date publishedDate;
 }
