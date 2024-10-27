@@ -44,11 +44,21 @@ public class ArticleController {
     }
 
     @PutMapping("/article/{id}")
-    public ResponseEntity<?> updateArticle(@PathVariable int id, @RequestBody Article article) {
-        Article article1 = service.updateArticle(id, article);
+    public ResponseEntity<?> updateArticleById(@PathVariable int id, @RequestBody Article article) {
+        Article article1 = service.updateArticleById(id, article);
 
         if (article1 != null) {
             return new ResponseEntity<>(article1, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/article/{id}")
+    public ResponseEntity<?> deleteArticleById(@PathVariable int id) {
+        Article article = service.getArticleById(id);
+        if (article != null) {
+            service.deleteArticleById(id);
+            return new ResponseEntity<>("Article Deleted Successfully!", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

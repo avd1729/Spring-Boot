@@ -25,7 +25,7 @@ public class ArticleService {
         return repository.save(article);
     }
 
-    public Article updateArticle(int id, Article article) {
+    public Article updateArticleById(int id, Article article) {
         Article article1 = repository.findById(id).orElse(null);
         if(article1 != null) {
             article1.setTitle(article.getTitle());
@@ -36,5 +36,9 @@ public class ArticleService {
         } else {
             return repository.save(article);
         }
+    }
+
+    public void deleteArticleById(int id) {
+        repository.deleteById(id);
     }
 }
