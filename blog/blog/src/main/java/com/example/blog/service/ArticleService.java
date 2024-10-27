@@ -24,4 +24,17 @@ public class ArticleService {
     public Article addArticle(Article article) {
         return repository.save(article);
     }
+
+    public Article updateArticle(int id, Article article) {
+        Article article1 = repository.findById(id).orElse(null);
+        if(article1 != null) {
+            article1.setTitle(article.getTitle());
+            article1.setAuthor(article.getAuthor());
+            article1.setContent(article.getContent());
+            article1.setPublishedDate(article.getPublishedDate());
+            return repository.save(article1);
+        } else {
+            return repository.save(article);
+        }
+    }
 }
