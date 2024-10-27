@@ -16,4 +16,8 @@ public class ArticleService {
     public List<Article> getAllArticles() {
         return repository.findAll();
     }
+
+    public Article getArticleById(int id) {
+        return repository.findById(id).orElse(null);
+    }
 }
