@@ -1,28 +1,25 @@
-package com.example.todo2.model;
+package com.example.todo.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "tasks")
 public class Task {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String title;
     private String description;
-    private int priority;
-    private boolean completionStatus;
+    private boolean completed;
 
-    @ManyToOne(fetch = FetchType.LAZY) // A task belongs to one user
-    @JoinColumn(name = "user_id", nullable = false) // Foreign key
+    @ManyToOne
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
-
 }
