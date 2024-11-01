@@ -23,6 +23,10 @@ public class TaskService {
         return repository.findByUserId(userId);
     }
 
+    public Task getTaskById(Long taskId) {
+        return repository.findById(taskId).get();
+    }
+
     public Task createTask(TaskRequest taskRequest) {
         // Retrieve the user using userId from the TaskRequest
         User user = userRepository.findById(taskRequest.getUserId())
@@ -53,5 +57,9 @@ public class TaskService {
         task1.setUser(user);
         return repository.save(task1);
 
+    }
+
+    public void deleteTaskById(Long id) {
+        repository.deleteById(id);
     }
 }
