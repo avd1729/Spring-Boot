@@ -26,4 +26,13 @@ public class TaskController {
     public ResponseEntity<Task> createTask(@RequestBody TaskRequest task) {
         return new ResponseEntity<>(service.createTask(task), HttpStatus.OK);
     }
+
+    @PutMapping("/tasks/{id}")
+    public ResponseEntity<Task> updateTaskById(@PathVariable Long id, @RequestBody TaskRequest task) {
+        Task task1 = service.updateTaskById(id , task);
+        if (task1 != null) {
+            return new ResponseEntity<>(task1, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

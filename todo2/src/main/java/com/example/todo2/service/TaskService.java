@@ -40,4 +40,18 @@ public class TaskService {
     }
 
 
+    public Task updateTaskById(Long id, TaskRequest task) {
+        Task task1 = repository.findById(id).orElseThrow(() -> new RuntimeException("Task not found with id: " + id));
+        task1.setTitle(task.getTitle());
+        task1.setDescription(task.getDescription());
+        task1.setPriority(task.getPriority());
+        task1.setCompletionStatus(task.isCompletionStatus());
+
+        User user = userRepository.findById(task.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + task.getUserId()));
+
+        task1.setUser(user);
+        return repository.save(task1);
+
+    }
 }
