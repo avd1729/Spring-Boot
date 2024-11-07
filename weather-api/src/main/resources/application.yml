@@ -17,3 +17,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/test
     username: postgres
     password: root
+  main:
+    allow-bean-definition-overriding: true
